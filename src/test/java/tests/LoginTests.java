@@ -2,6 +2,7 @@ package tests;
 
 import base.BasePage;
 import base.baseTest;
+import jdk.jfr.Description;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -19,7 +20,8 @@ public class LoginTests extends baseTest {
 
 
 
-    @Test(dataProvider = "loginData", dataProviderClass = DataProviderUtil.class, priority = 1)
+    @Test(dataProvider = "loginData", dataProviderClass = DataProviderUtil.class,
+            priority = 1, description = "Validate_the_login_Functionality")
     public void login (String testDataType, String expectedError , String user, String pass) throws InterruptedException {
 
         lp= new LoginPage(driver);
