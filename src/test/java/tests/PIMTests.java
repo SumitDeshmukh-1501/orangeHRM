@@ -6,6 +6,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import pageobject.PIMPage;
 import utils.DataProviderUtil;
+import utils.WaitUtils;
 
 import java.util.Map;
 
@@ -34,12 +35,13 @@ public class PIMTests extends baseTest {
     }
     @Test(priority = 4,dependsOnMethods = "addNewEmployee")
     public void verifyID(){
+        WaitUtils.waitTill10sec();
         Assert.assertEquals(pi.getIDFromEmpList(),newEmployee.get("empID"));
     }
 
     @Test(priority = 5, dependsOnMethods = "verifyID")
     public void fillPersonalDetails(){
-      // pi.selectNationality(newEmployee.get("country"));
+      //pi.selectNationality(newEmployee.get("country"));
        pi.giveDOB(newEmployee.get("dob"));
        pi.selectGender(newEmployee.get("gender"));
        pi.savePersonalDetails();

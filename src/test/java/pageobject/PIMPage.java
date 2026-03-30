@@ -9,6 +9,7 @@ import org.openqa.selenium.support.PageFactory;
 import utils.JavaScriptUtils;
 import utils.WaitUtils;
 
+import java.time.Duration;
 import java.util.Arrays;
 import java.util.List;
 
@@ -62,11 +63,13 @@ public class PIMPage {
     @FindBy(xpath = "//p[@class='oxd-text oxd-text--p oxd-text--toast-title oxd-toast-content-text']")
     WebElement success;
 
-
+    @FindBy(xpath=("//div[@class='oxd-loading-spinner']"))
+    WebElement loader;
 
 
 
     public void clickAddEmployee(){
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         WaitUtils.waitForElementClickable(addEmpbtn);
         addEmpbtn.click();
     }
@@ -104,11 +107,13 @@ public class PIMPage {
     }
 
     public String getIDFromEmpList(){
-
+        WaitUtils.waitForPageLoad();
+        WaitUtils.waitForElementToDisappear(loader);
         return idFromEmpList.getAttribute("value");
     }
 
     public void selectNationality(String country){
+        WaitUtils.waitForPageLoad();
         nationality.click();
 
         for(WebElement e:countryOption){

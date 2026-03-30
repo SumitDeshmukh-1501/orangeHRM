@@ -81,7 +81,7 @@ public class ExtentReport {
                 test.log(Status.SKIP, r.getName() + "Test case is Skipped");
                 break;
         }
-        Thread.sleep(5000);
+
         if(r.getStatus()==ITestResult.FAILURE) test.addScreenCaptureFromPath(ScreenshotUtil.takeScreenShot(methodname));
 
 

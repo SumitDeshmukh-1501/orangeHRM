@@ -36,6 +36,15 @@ public class WaitUtils extends baseTest {
 
     }
 
+    public static void waitForElementToDisappear(WebElement ele){
+        wait=new WebDriverWait(driver,Duration.ofSeconds(30));
+        wait.until(ExpectedConditions.invisibilityOf(ele));
+    }
+
+    public static void waitTill10sec(){
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+    }
+
 
 
 }
