@@ -1,5 +1,6 @@
 package pageobject;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -48,14 +49,13 @@ public class PIMPage {
     @FindBy(xpath="//*[@id=\"app\"]/div[1]/div[2]/div[2]/div/div/div/div[2]/div[1]/form/div[3]/div[1]/div[1]/div/div[2]/div/div/div[2]/i")
     WebElement nationality;
 
-    @FindBy(xpath="//div[contains(@class,'oxd-select-dropdown')]//div")
-    List<WebElement> countryOption;
+    By countryOption=By.xpath("//div[contains(@class,'oxd-select-dropdown')]//div//span");
 
     @FindBy(xpath="(//input[contains(@class,'oxd-input') and @placeholder='yyyy-dd-mm'])[2]")
     WebElement dob;
 
-    @FindBy(xpath="//input[@type='radio']")
-    List<WebElement> genders;
+    @FindBy(xpath="//div[@class='oxd-radio-wrapper']//label")
+    List<WebElement> genderslabel;
 
     @FindBy(xpath="//div[@class='orangehrm-horizontal-padding orangehrm-vertical-padding']//button[@type='submit' and normalize-space()='Save']")
     WebElement savePersonal;
@@ -116,10 +116,19 @@ public class PIMPage {
         WaitUtils.waitForPageLoad();
         nationality.click();
 
-        for(WebElement e:countryOption){
-            WaitUtils.waitForElementClickable(e);
-            if(e.getText().equalsIgnoreCase(country)) e.click();
+        List<WebElement>options=driver.findElements(countryOption);
+        WaitUtils.waitForAllElementsToVisible(options);
+
+        for(WebElement e:options) {
+            WaitUtils.waitForElementVisibility(e);
+            if (e.getText().equalsIgnoreCase(country)) {
+                WaitUtils.waitForElementClickable(e);
+                e.click();
+            }
         }
+
+
+
 
     }
 
@@ -129,10 +138,11 @@ public class PIMPage {
     }
 
     public void selectGender(String gender){
-        for (WebElement e:genders) {
+        
+        
+        for (WebElement e:genderslabel) {
             if(e.getText().equalsIgnoreCase(gender)){
-                WaitUtils.waitForElementClickable(e);
-                e.click();
+               e.click();
             }
         }
     }

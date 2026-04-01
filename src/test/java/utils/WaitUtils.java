@@ -32,7 +32,7 @@ public class WaitUtils extends baseTest {
 
     public static void waitForAllElementsToVisible(List<WebElement> elements){
         wait=new WebDriverWait(driver,Duration.ofSeconds(30));
-        for (WebElement ele:elements) wait.until(ExpectedConditions.elementToBeClickable(ele));
+        for (WebElement ele:elements) wait.until(ExpectedConditions.visibilityOfAllElements(ele));
 
     }
 

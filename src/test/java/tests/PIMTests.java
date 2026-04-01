@@ -9,6 +9,7 @@ import utils.DataProviderUtil;
 import utils.WaitUtils;
 
 import java.util.Map;
+import java.util.NoSuchElementException;
 
 public class PIMTests extends baseTest {
 
@@ -36,14 +37,24 @@ public class PIMTests extends baseTest {
     @Test(priority = 4,dependsOnMethods = "addNewEmployee")
     public void verifyID(){
         WaitUtils.waitTill10sec();
-        Assert.assertEquals(pi.getIDFromEmpList(),newEmployee.get("empID"));
+
+        try {
+            Assert.assertEquals(pi.getIDFromEmpList(), newEmployee.get("empID"));
+        }
+        catch( RuntimeException r){
+            BasePage.refreshPage();
+            WaitUtils.waitForPageLoad();
+            Assert.assertEquals(pi.getIDFromEmpList(), newEmployee.get("empID"));
+        }
+
     }
 
     @Test(priority = 5, dependsOnMethods = "verifyID")
     public void fillPersonalDetails(){
-      //pi.selectNationality(newEmployee.get("country"));
+
        pi.giveDOB(newEmployee.get("dob"));
        pi.selectGender(newEmployee.get("gender"));
+        pi.selectNationality(newEmployee.get("country"));
        pi.savePersonalDetails();
 
         Assert.assertEquals(pi.getSuccessMsg(),"Success");
