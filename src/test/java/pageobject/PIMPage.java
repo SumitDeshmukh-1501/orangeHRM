@@ -7,6 +7,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.Wait;
 import utils.JavaScriptUtils;
 import utils.WaitUtils;
 
@@ -66,6 +67,68 @@ public class PIMPage {
     @FindBy(xpath=("//div[@class='oxd-loading-spinner']"))
     WebElement loader;
 
+    @FindBy(xpath="//div[@class='oxd-calendar-selector-year-selected']")
+    WebElement calYearDropdown;
+
+    @FindBy(xpath="//li[contains(@class,'oxd-calendar-dropdown--option')]")
+    WebElement calYearOptions;
+
+    @FindBy(xpath="//div[@class='oxd-calendar-selector-month-selected']")
+    WebElement calMonthDropdown;
+
+    @FindBy(xpath="//li[contains(@class,'oxd-calendar-dropdown--option')]")
+    WebElement monthOptions;
+
+
+    @FindBy(xpath="//div[@class='oxd-calendar-dates-grid']//div//div")
+    List<WebElement> calDates;
+
+
+
+
+
+
+    @FindBy(xpath="(//div[@class='oxd-loading-spinner-container'])[1]")
+    WebElement jobPageLoader;
+
+
+
+    @FindBy(xpath="//a[normalize-space()='Job']")
+    WebElement jobButton;
+
+
+    @FindBy(xpath="(//div[contains(@class,'oxd-select-wrapper')])[1]")
+    WebElement jobTitleDropDown;
+
+    @FindBy(xpath="//div[contains(@class,'oxd-select-option')]//span")
+    List<WebElement>jobTitleOptions;
+
+    @FindBy(xpath="(//div[contains(@class,'oxd-select-wrapper')])[2]")
+    WebElement jobCategoryDropDown;
+
+    @FindBy(xpath="//div[contains(@class,'oxd-select-option')]//span")
+    List<WebElement>jobCategoryOptions;
+
+    @FindBy(xpath="(//div[contains(@class,'oxd-select-wrapper')])[3]")
+    WebElement subUnitDropDown;
+
+    @FindBy(xpath="//div[contains(@class,'oxd-select-option')]//span")
+    List<WebElement>subUnitOptions;
+
+    @FindBy(xpath="(//div[contains(@class,'oxd-select-wrapper')])[5]")
+    WebElement empStatusDropDown;
+
+    @FindBy(xpath="//div[contains(@class,'oxd-select-option')]//span")
+    List<WebElement>empStatusOptions;
+
+    @FindBy (xpath="//button[normalize-space()='Save']")
+    WebElement jobSaveBtn;
+
+    @FindBy(xpath = "//div[contains(@class,'oxd-toast-content')]//p[contains(@class,'oxd-text')]")
+    WebElement jobSaveMessage;
+
+
+
 
 
     public void clickAddEmployee(){
@@ -120,10 +183,11 @@ public class PIMPage {
         WaitUtils.waitForAllElementsToVisible(options);
 
         for(WebElement e:options) {
-            WaitUtils.waitForElementVisibility(e);
+
             if (e.getText().equalsIgnoreCase(country)) {
                 WaitUtils.waitForElementClickable(e);
                 e.click();
+                break;
             }
         }
 
@@ -155,6 +219,92 @@ public class PIMPage {
     public String getSuccessMsg(){
         WaitUtils.waitForElementVisibility(success);
         return success.getText();
+    }
+
+    public void goToJob(){
+        WaitUtils.waitForPageLoad();
+        WaitUtils.waitForElementClickable(jobButton);
+        jobButton.click();
+        WaitUtils.waitForElementToDisappear(jobPageLoader);
+
+
+    }
+
+    public void fillJoinedDate(){
+
+    }
+
+
+
+    public void selectJobTitle(){
+        WaitUtils.waitForElementClickable(jobTitleDropDown);
+        jobTitleDropDown.click();
+
+
+        for (WebElement e:jobTitleOptions){
+//            if(e.getText().equalsIgnoreCase("sss")){
+//                WaitUtils.waitForElementClickable(e);
+//                e.click();
+//            }
+            System.out.println(e.getText());
+
+
+        }
+        System.out.println("------------------------------------------");
+    }
+
+    public void selectJoinCategory(){
+        WaitUtils.waitForElementClickable(jobCategoryDropDown);
+        jobCategoryDropDown.click();
+
+
+        for (WebElement e:jobCategoryOptions){
+//            if(e.getText().equalsIgnoreCase("sss")){
+//                WaitUtils.waitForElementClickable(e);
+//                e.click();
+//            }
+            System.out.println(e.getText());
+        }
+        System.out.println("------------------------------------------");
+    }
+    public void selectSubUnit(){
+        WaitUtils.waitForElementClickable(subUnitDropDown);
+        subUnitDropDown.click();
+
+
+        for (WebElement e:subUnitOptions){
+//            if(e.getText().equalsIgnoreCase("sss")){
+//                WaitUtils.waitForElementClickable(e);
+//                e.click();
+//            }
+            System.out.println(e.getText());
+        }
+        System.out.println("------------------------------------------");
+    }
+    public void selectEmployementStatus(){
+
+        WaitUtils.waitForElementClickable(empStatusDropDown);
+        empStatusDropDown.click();
+
+
+        for (WebElement e:empStatusOptions){
+//            if(e.getText().equalsIgnoreCase("sss")){
+//                WaitUtils.waitForElementClickable(e);
+//                e.click();
+//            }
+            System.out.println(e.getText());
+        }
+        System.out.println("------------------------------------------");
+    }
+
+    public void saveJobDetails(){
+        WaitUtils.waitForElementClickable(jobSaveBtn);
+        jobSaveBtn.click();
+    }
+
+    public String getJobSaveMessage(){
+        WaitUtils.waitForElementVisibility(jobSaveMessage);
+        return jobSaveMessage.getText();
     }
 
 }

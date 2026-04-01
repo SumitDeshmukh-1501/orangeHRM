@@ -10,12 +10,17 @@ import javax.imageio.stream.FileImageInputStream;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class ExcelUtils{
 
     //read Data for Dataprovider.
     public static Object[][] data;
+    public static List<Object> listData;
+
+
     public static Object[][] ReadFromExcel(String sheetName) throws IOException {
         FileInputStream fis= new FileInputStream(System.getProperty("user.dir") + "/src/test/resources/testData/testdata.xlsx");
         XSSFWorkbook wk=new XSSFWorkbook(fis);
@@ -32,6 +37,25 @@ public class ExcelUtils{
 
         System.out.println(data.length);
         return data;
+    }
+
+    public static List<Object> ExceltoList(String sheetName) throws IOException{
+        FileInputStream fis= new FileInputStream(System.getProperty("user.dir") + "/src/test/resources/testData/testdata.xlsx");
+        XSSFWorkbook wk=new XSSFWorkbook(fis);
+        XSSFSheet sheet = wk.getSheet(sheetName);
+
+        int cellCount=sheet.getRow(0).getLastCellNum();
+
+        listData= new ArrayList<>();
+
+            for(int j=0; j<cellCount; j++){
+                listData.add(sheet.getRow(0).getCell(j).getStringCellValue());
+            }
+
+
+
+        return listData;
+
     }
 
 

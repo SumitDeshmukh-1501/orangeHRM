@@ -29,7 +29,7 @@ public class FakerUtil
     }
 
     public static String generateCountry(){
-        return f.country().name();
+        return f.demographic().demonym();
     }
 
     public static String getGender(){

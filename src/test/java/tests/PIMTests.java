@@ -51,12 +51,20 @@ public class PIMTests extends baseTest {
 
     @Test(priority = 5, dependsOnMethods = "verifyID")
     public void fillPersonalDetails(){
-
+        pi.selectNationality(newEmployee.get("country"));
        pi.giveDOB(newEmployee.get("dob"));
        pi.selectGender(newEmployee.get("gender"));
-        pi.selectNationality(newEmployee.get("country"));
        pi.savePersonalDetails();
+       Assert.assertEquals(pi.getSuccessMsg(),"Success");
+    }
 
-        Assert.assertEquals(pi.getSuccessMsg(),"Success");
+    @Test(priority = 6, dependsOnMethods = "fillPersonalDetails")
+    public void fillJobDetails(){
+        pi.goToJob();
+        pi.fillJoinedDate();
+        pi.selectJobTitle();
+        pi.selectJoinCategory();
+        pi.selectSubUnit();
+        pi.selectEmployementStatus();
     }
 }
