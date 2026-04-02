@@ -8,6 +8,7 @@ import pageobject.PIMPage;
 import utils.DataProviderUtil;
 import utils.WaitUtils;
 
+import java.io.IOException;
 import java.util.Map;
 import java.util.NoSuchElementException;
 
@@ -17,6 +18,9 @@ public class PIMTests extends baseTest {
     Map<String,String> newEmployee= DataProviderUtil.employeeDetails();
     String newEmployeeID;
     String newID;
+
+    public PIMTests() throws IOException {
+    }
 
     @Test(priority = 3)
     public void goToAddEmployee(){
@@ -61,10 +65,24 @@ public class PIMTests extends baseTest {
     @Test(priority = 6, dependsOnMethods = "fillPersonalDetails")
     public void fillJobDetails(){
         pi.goToJob();
-        pi.fillJoinedDate();
-        pi.selectJobTitle();
-        pi.selectJoinCategory();
-        pi.selectSubUnit();
-        pi.selectEmployementStatus();
+
+        pi.fillJoinedDate(newEmployee.get("joinedDate"));
+        pi.selectJobTitle(newEmployee.get("jobTitle"));
+        pi.selectJobCategory(newEmployee.get("jobCategory"));
+        pi.selectSubUnit(newEmployee.get("subUnit"));
+        pi.selectEmployementStatus(newEmployee.get("employmentStatus"));
+        pi.saveJobDetails();
+        Assert.assertEquals(pi.getJobSaveMessage(),"Success");
+
     }
+    @Test(priority = 7, dependsOnMethods = "fillJobDetails")
+    public void fillJSuperWiser(){
+        pi.goToreportTo();
+        pi.clickAdd();
+        pi.selectSuperWiser(newEmployee.get("superwiser"));
+        pi.selectReportingMethod(newEmployee.get("reportingMethod"));
+        pi.saveSuperwiserDetails();
+        Assert.assertEquals(pi.getSaveSuperwiserMessage(),"Success");
+    }
+
 }

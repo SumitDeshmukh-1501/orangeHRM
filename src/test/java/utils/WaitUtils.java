@@ -5,7 +5,7 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
+import org.openqa.selenium.By;
 import java.time.Duration;
 import java.util.List;
 
@@ -44,7 +44,15 @@ public class WaitUtils extends baseTest {
     public static void waitTill10sec(){
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
     }
+    public static WebElement waitFortheElementRefresh(By loactor){
+        WebElement element = wait.until(
+                ExpectedConditions.refreshed(
+                        ExpectedConditions.elementToBeClickable(loactor)
+                )
+        );
 
+        return element;
+    }
 
 
 }

@@ -6,6 +6,7 @@ import com.github.javafaker.IdNumber;
 import javax.swing.text.DateFormatter;
 import java.text.SimpleDateFormat;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 
 public class FakerUtil
 {
@@ -26,6 +27,11 @@ public class FakerUtil
     public static String generateBirthDate(){
         DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         return new SimpleDateFormat("yyyy-MM-dd").format(f.date().birthday());
+    }
+
+    public static String genrateDate(){
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        return new SimpleDateFormat("yyyy-MM-dd").format(f.date().between(new Date(0), new Date()));
     }
 
     public static String generateCountry(){

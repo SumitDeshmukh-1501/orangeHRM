@@ -26,6 +26,8 @@ public class DataProviderUtil {
         m.put("dob",FakerUtil.generateBirthDate());
         m.put("country", FakerUtil.generateCountry());
         m.put("empID", FakerUtil.getempID());
+        m.put("joinedDate", FakerUtil.genrateDate());
+
 
         List<Object> jobTitles=ExcelUtils.ExceltoList("jobTitles");
         m.put("jobTitle", String.valueOf(jobTitles.get(R.nextInt(jobTitles.size()))));
@@ -38,6 +40,9 @@ public class DataProviderUtil {
 
         List<Object> employmentStatus=ExcelUtils.ExceltoList("employmentStatus");
         m.put("employmentStatus", String.valueOf(employmentStatus.get(R.nextInt(employmentStatus.size()))));
+
+        m.put("superwiser","Ranga  Akunuri");
+        m.put("reportingMethod","Direct");
 
 
 

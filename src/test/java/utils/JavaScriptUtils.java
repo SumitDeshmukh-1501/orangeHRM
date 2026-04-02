@@ -11,4 +11,9 @@ public class JavaScriptUtils extends baseTest {
         js.executeScript("arguments[0].scrollIntoView(true)",ele);
     }
 
+    public static void scrollToTop(){
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("window.scrollTo(0, 0);");
+    }
+
 }
